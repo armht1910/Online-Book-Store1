@@ -1,0 +1,92 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Search Book</title>
+    <link th:href="@{/css/menu_style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo { font-size: 1.5em; }
+        nav ul { list-style: none; display: flex; }
+        nav ul li { margin: 0 10px; }
+        nav ul li a { color: white; text-decoration: none; padding: 5px 10px; border-radius: 5px; }
+        nav ul li a.active, nav ul li a:hover { background-color: #575757; }
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 600px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        h1 { text-align: center; color: #333; margin-bottom: 20px; }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover { background-color: #218838; }
+        .book-result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .book-result img {
+            max-width: 200px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="logo">Online Book Store</div>
+    <ul>
+        <li><a href="/User_Home">Home</a></li>
+        <li><a class="active" href="/User_Books">Search Book</a></li>
+        <li><a href="/User_Buy_Book">Buy Book</a></li>
+        <li><a href="/Order_Details">Order Details</a></li>
+        <li><a href="/">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Search for a Book</h1>
+    <form action="/user_search_Book" method="post">
+        <input type="text" name="Book_title" placeholder="Enter Book Title" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Результат поиска -->
+    <div class="book-result" th:if="${BookFound}">
+        <img th:src="${BookImage}" alt="Book Image">
+        <h2 th:text="${BookTitle}">Book Title</h2>
+        <p>Author: <span th:text="${BookAuthor}"></span></p>
+    </div>
+    <div class="book-result" th:if="${!BookFound}">
+        <p>Sorry, the book was not found.</p>
+    </div>
+</div>
+</body>
+</html>
