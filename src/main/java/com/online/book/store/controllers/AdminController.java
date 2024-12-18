@@ -71,6 +71,8 @@ public class AdminController {
         return mv;
     }
 
+    private String absolutePath = "C:\\Users\\seysi\\OneDrive\\Desktop\\rand\\Online-Book-Store\\src\\main\\resources\\static\\images";
+
     @PostMapping("/book_Add")
     public ModelAndView addBook(@RequestParam("Book_title") String Book_title,
                                 @RequestParam("Author") String author,
@@ -91,15 +93,13 @@ public class AdminController {
 
             // Обработка загруженного файла
             if (!file.isEmpty()) {
-                String uploadDir = "uploads";
-                File uploadDirFile = new File(uploadDir);
-                if (!uploadDirFile.exists()) uploadDirFile.mkdirs();
-
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                File dest = new File(uploadDirFile, fileName);
+                String deston = absolutePath + "/" + fileName;
+                File dest = new File(deston);
                 try {
                     file.transferTo(dest);
-                    book.setImagePath("/" + uploadDir + "/" + fileName);
+                    book.setImagePath(deston);
+                    book.setImageName(fileName);
                 } catch (IOException e) {
                     e.printStackTrace();
                     mv.addObject("PrintSwal", "File_Error");

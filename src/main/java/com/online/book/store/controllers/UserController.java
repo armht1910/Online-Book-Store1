@@ -142,7 +142,7 @@ public class UserController {
 			BookRegistration book = breg1.get();
 			mv.addObject("Bname", book.getBook_title());
 			mv.addObject("Bprice", book.getPrice());
-			mv.addObject("BimagePath", book.getImagePath()); // Добавляем путь к изображению
+			mv.addObject("BimagePath", "/images/" + book.getImageName()); // Добавляем путь к изображению
 			mv.addObject("PrintSwal", "Book_Found");
 		} else {
 			mv.addObject("PrintSwal", "Book_Not_Found");
